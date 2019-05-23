@@ -51,9 +51,69 @@ def curva_de_ejemplo():
 
 def helice_conica():
     # añadir sus códigos aca
+    """
+        Curva de Ejemplo que despliega una Helice Cónica
+
+        Integrantes:
+        - Mario Labbé (@LsMario1998)
+        - Mario González (@tatameister)
+        - Cristóbal Cortés (@Cristobal140)
+        - Thadly Guerra (@Thadly64)
+        - Luis Inostroza (@luisinostrozaf)
+        :return: Curva Helice Cónica
+        """
+
+    plt.rcParams['legend.fontsize'] = 10
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    # Prepare arrays x, y, z
+    theta = np.linspace(-6 * np.pi, 6 * np.pi, 1000)
+    print (np.cos((np.pi*30)/180))
+
+    e = 2.718281
+    a = 3
+    x = a * (e**(np.sin(45) * (1/np.tan(30)*theta))) * np.cos(theta)
+    y = a * (e**(np.sin(45) * (1/np.tan(30)*theta)))* np.sin(theta)
+    z = a * (e**(np.sin(45) * (1/np.tan(30)*theta))) * (1/np.tan(45))
+
+    ax.plot(x, y, z, label='helice cónica')
+    ax.legend()
+
+    plt.show()
     pass
 def helice_circular_1():
+    """
+    Curva que depliega una una helice circular en una ventana nueva
+
+    Integrantes:
+    - Felipe Lopez Vergara (@felipelopez00)
+    - Bastian Bustamante Moraga (@BastianBustamante)
+    - Rodrigo Torrez Queupan (@imperium31)
+    - Juan Hernandez Gatica (@juanpablo1994)
+    -Eric Rojas Palma (@valukar)
+    :return: circular propeller
+    """
+
     # añadir sus códigos aca
+    n = 1000
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    # caracteristicas de la helice circular
+    t_max = 8 * np.pi
+    t = np.linspace(0, t_max, n)
+    z = t
+    r = 5
+    y = r * np.sin(t)
+    x = r * np.cos(t)
+    ax.plot(x, y, z, 'b', lw=2)
+
+    # linea roja al centro de la helice circular
+    ax.plot((0, 0), (0, 0), (-t_max * 0.2, t_max * 1.2), color='r', lw=2)
+
+    plt.show()
     pass
 def Corona_Sinusoidal():
     # añadir sus códigos aca
@@ -82,11 +142,9 @@ def hipopoda_1():
            return: plot Curve (Hipopede)
            '''
 
-    plt.rcParams['legend.fontsize'] = 10
-
+    plt.rcParams['legend.fontsize'] = 12
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-
     # Prepare arrays x, y, z
     theta = np.linspace(-4 * np.pi, 4 * np.pi, 99)
     a = 1
@@ -94,14 +152,45 @@ def hipopoda_1():
     x = a + (r - a) * np.cos(theta)
     y = (r - a) * np.sin(theta)
     z = 2 * (a * (r - a)) ** (1 / 2) * np.sin(theta / 2)
-    ax.plot(x, y, z, label='parametric curve')
+    ax.plot(x, y, z, label='Hipopede de Eudoxo')
 
     ax.legend()
 
     plt.show()
     pass
 def conica_de_papus():
-    # añadir sus códigos aca
+    """
+        Curva que entrega una conica de papus en la interfaz grafica
+
+        Integrantes:
+        - José Fabián Ignacio González Encina (@GoldenFenix)
+        - Cristian Eduardo Castillo (@criseduardjjd)
+        - Diego Faundez Mendez(@diegofaundezm)
+        - Claudio Alcaino Muñoz (@klauser99)
+        - Francisco Castillo Moraga(@taifokk)
+        :return: conica de papus
+        """
+    plt.rcParams['legend.fontsize'] = 12
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    # Prepare arrays x, y, z
+    t = np.linspace(-9 * np.pi, 9 * np.pi, 2000)
+
+    a1 = 30
+
+    a = 15
+    z = a1 * np.cos(a) * t
+    r = z ** 2 + 1
+    x = a1 * np.sin(a) * t * np.cos(t)
+    y = a1 * np.sin(a) * t * np.sin(t)
+
+    ax.plot(x, y, z, label='espiral conica de papus')
+    ax.legend()
+
+    plt.show()
+
     pass
 def Curva_de_Arquitas():
     # añadir sus códigos aca

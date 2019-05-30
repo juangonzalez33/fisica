@@ -6,6 +6,8 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 import numpy as np
 import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.animation as ani
 from mpl_toolkits.mplot3d import Axes3D
 
 def curva_de_ejemplo():
@@ -108,18 +110,54 @@ def helice_circular_1():
     r = 5
     y = r * np.sin(t)
     x = r * np.cos(t)
-    ax.plot(x, y, z, 'b', lw=2)
-
-    # linea roja al centro de la helice circular
+    ax.plot(x, y, z, 'b', lw=2, label='Curva Hélice Circular')
+    ax.legend()
+    # linea ax.legend()oja al centro de la helice circular
     ax.plot((0, 0), (0, 0), (-t_max * 0.2, t_max * 1.2), color='r', lw=2)
 
     plt.show()
     pass
 def Corona_Sinusoidal():
-    # añadir sus códigos aca
+    '''    INTEGRANTES GRUPO:
+
+          _Luis Soto Zelada (@Luiss23)
+          _Diego Rojas (@diegoskky)
+          _Lucia Vilches (@luciavj)
+          grafica una corona sinusoidal en un plano cartesiano
+          De la forma  f(x)=2sen(pi * x)'''
+    Fs: int = 80  # corresponde al limite de la funcion en un ciclo
+    f: float = 1  # cantidad de unidades del eje y
+    sample: int = 80
+    x = np.arange(sample)
+    y = np.sin(2 * np.pi * f * x / Fs)
+    plt.plot(x, y)
+    plt.show()
     pass
+
 def curva_de_viviani():
-    # añadir sus códigos aca
+    """
+    Funcion que muestra una curva de viviani en una nueva ventana
+
+    Integrantes:
+    Levi Urbina
+    Natalia Valenzuela
+    Ricardo Vergara
+    Estefany Alarcon
+
+    return: curva_de_viviani
+    """
+
+    a = 1
+    t = np.linspace(-4, 4 * np.pi, 100)
+    x = a * (1 + np.cos(t))
+    y = a * np.sin(t)
+    z = 2 * a * np.sin(t / 2)
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.set_title("Curva de viviani")
+    ax.plot(x, y, z, label="Curva de Viviani", lw=5)
+    plt.show()
     pass
 def hipopoda_1():
     # añadir sus códigos aca
@@ -142,7 +180,7 @@ def hipopoda_1():
            return: plot Curve (Hipopede)
            '''
 
-    plt.rcParams['legend.fontsize'] = 12
+    """plt.rcParams['legend.fontsize'] = 12
     fig = plt.figure()
     ax = fig.gca(projection='3d')
     # Prepare arrays x, y, z
@@ -152,10 +190,42 @@ def hipopoda_1():
     x = a + (r - a) * np.cos(theta)
     y = (r - a) * np.sin(theta)
     z = 2 * (a * (r - a)) ** (1 / 2) * np.sin(theta / 2)
-    ax.plot(x, y, z, label='Hipopede de Eudoxo')
+    curva,= ax.plot(x, y, z,label='Hipopede de Eudoxo')
 
+    def update(num, x, y, curva):
+        line.set_data(x[:num], y[:num])
+        line.axes.axis([0, 10, 0, 1])
+        return curva,
     ax.legend()
+"""
+    fig = plt.figure()
+    ax = p3.Axes3D(fig)
 
+    def gen(n):
+        for theta in np.linspace(0, 4 * np.pi, 99):
+            yield np.array([5 + (20 - 5) * np.cos(theta), (20 - 5) * np.sin(theta),
+                            2 * (5 * (20 - 5)) ** (1 / 2) * np.sin(theta / 2)])
+
+    def update(num, data, line):
+        line.set_data(data[:2, :num])
+        line.set_3d_properties(data[2, :num])
+
+    N = 100
+    data = np.array(list(gen(N))).T
+    line, = ax.plot(data[0, 0:1], data[1, 0:1], data[2, 0:1])
+
+    # Setting the axes properties
+    ax.set_xlim3d([-20.0, 20.0])
+    ax.set_xlabel('X')
+
+    ax.set_ylim3d([-20.0, 20.0])
+    ax.set_ylabel('Y')
+
+    ax.set_zlim3d([-20.0, 20.0])
+    ax.set_zlabel('Z')
+
+    anim = ani.FuncAnimation(fig, update, N, fargs=(data, line), interval=10000 / N, blit=False,repeat=False)
+    # ani.save('matplot003.gif
     plt.show()
     pass
 def conica_de_papus():
@@ -193,8 +263,38 @@ def conica_de_papus():
 
     pass
 def Curva_de_Arquitas():
-    # añadir sus códigos aca
-    pass
+    """""
+        Tipo de curva: Curva de Arquitas
+
+        Integrantes:
+        Nicolas Fernandez (@matiche)
+        Sebastian Mendez  (@SebaMendez)
+        Cristobal Moreira (@cmoreirab)
+        Gabriel Lara      (@Gabolara453)
+        Dennis Queirolo   (@dennis-queirolo)
+        :return: Curva de arquitas
+        """
+
+    plt.rcParams['legend.fontsize'] = 10
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    # Prepare arrays x, y, z
+    theta = np.linspace(-10 * np.pi, 10 * np.pi, 100)
+    a = 4
+    t = 10
+    z = a * ((1 - np.cos(theta)) * np.cos(theta)) - (np.pi / 2 <= t <= np.pi / 2)
+    z = - a * ((1 - np.cos(theta)) * np.cos(theta)) - (np.pi / 2 <= t <= np.pi / 2)
+    x = a * np.cos(theta) ** 2
+    y = a * np.cos(theta) * np.sin(theta)
+
+    ax.plot(x, y, z, label=('Curva de Arquitas'))
+    ax.legend()
+
+    plt.show()
+
+
 def horoptera():
     # añadir sus códigos aca
     pass
@@ -228,7 +328,7 @@ if __name__ == '__main__':
     curva_de_ejemplo = tk.Button(master=frame, text="Corona Sinusoidal", command=Corona_Sinusoidal)
     curva_de_ejemplo.pack(side=tk.BOTTOM, padx=10, pady=10)
 
-    curva_de_ejemplo = tk.Button(master=frame, text="Curva de Viviani", command=curva_de_ejemplo)
+    curva_de_ejemplo = tk.Button(master=frame, text="Curva de Viviani", command=curva_de_viviani)
     curva_de_ejemplo.pack(side=tk.BOTTOM, padx=10, pady=10)
 
     curva_de_ejemplo = tk.Button(master=frame, text="Hipopoda", command=hipopoda_1)

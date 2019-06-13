@@ -210,7 +210,7 @@ def hipopoda_1():
         line.set_data(data[:2, :num])
         line.set_3d_properties(data[2, :num])
 
-    N = 100
+    N = 1500
     data = np.array(list(gen(N))).T
     line, = ax.plot(data[0, 0:1], data[1, 0:1], data[2, 0:1])
 
